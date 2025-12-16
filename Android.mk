@@ -13,6 +13,11 @@ display-hals += sde-drm
 display-hals += composer
 display-hals += init
 
+ifeq ($(TARGET_NO_CAMERA_CUSTOM_FORMAT),true)
+    LOCAL_CFLAGS += -DNO_CAMERA_CUSTOM_FORMAT
+    display-hals := $(filter-out libcamera%, $(display-hals))
+endif
+
 ifneq ($(TARGET_PROVIDES_LIBLIGHT),true)
     display-hals += liblight
 endif
